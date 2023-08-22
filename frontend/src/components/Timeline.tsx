@@ -27,12 +27,12 @@ const Timeline: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <h1>TIMELINE</h1>
+    <div className="p-4 bg-gray-100">
+      <h1 className="text-2xl font-bold mb-4">时间线</h1>
       <DiaryEntryForm onAdd={addEntry} />
-      <div className="entries">
+      <div className="entries mt-4 space-y-4">
         {entries.map((entry, index) => (
-          <div key={index} className="entry-card">
+          <div key={index} className="entry-card p-4 bg-white rounded-lg shadow-md">
             {entry}
           </div>
         ))}

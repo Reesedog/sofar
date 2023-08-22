@@ -31,17 +31,29 @@ const DiaryEntryForm: React.FC<Props> = ({ onAdd }) => {
     }
   };
 
+  const currentDate = new Date().toLocaleDateString();
+
   return (
-    <div className="diary-entry-form">
+    <div className="diary-entry-form p-4 bg-white rounded-lg shadow-lg relative ">
       <form onSubmit={handleSubmit}>
         <input
+          type="text"
           value={entry}
           onChange={(e) => setEntry(e.target.value)}
           placeholder="写下今天的日记..."
+          className="w-full p-2 mb-2 border rounded-md"
         />
-        <button type="submit">添加日记</button>
+        <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 shadow-md">
+          添加日记
+        </button>
+        <span className="absolute bottom-3 right-3 text-gray-500 px-4 py-2">
+          {currentDate}
+        </span>
       </form>
     </div>
+
+
+
   );
 }
 

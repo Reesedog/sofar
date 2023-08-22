@@ -10,6 +10,6 @@ const AppRoutes: React.FC = () => {
       </Routes>
     </Router>
   );
-}
+} 
 
 export default AppRoutes;
