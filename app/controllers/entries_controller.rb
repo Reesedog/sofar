@@ -12,6 +12,14 @@ class EntriesController < ApplicationController
         render json: @entry.errors, status: :unprocessable_entity
       end
     end
+
+    def destroy
+      @entry = Entry.find(params[:id])
+      @entry.destroy
+      render json: { message: 'Entry successfully deleted' }, status: :ok
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: 'Entry not found' }, status: :not_found
+    end
   
     private
   

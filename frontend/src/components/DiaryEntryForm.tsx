@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 
+type EntryType = {
+  id: number;
+  content: string;
+};
+
 interface Props {
-  onAdd: (entry: string) => void;
+  onAdd: (newEntry: EntryType) => void;
 }
 
 const DiaryEntryForm: React.FC<Props> = ({ onAdd }) => {
@@ -20,7 +25,8 @@ const DiaryEntryForm: React.FC<Props> = ({ onAdd }) => {
         });
 
         if (response.ok) {
-          onAdd(entry);
+          const data: EntryType = await response.json();
+          onAdd(data);
           setEntry('');
         } else {
           console.error("Error adding entry:", await response.text());
@@ -51,9 +57,6 @@ const DiaryEntryForm: React.FC<Props> = ({ onAdd }) => {
         </span>
       </form>
     </div>
-
-
-
   );
 }
 
