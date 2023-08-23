@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 type EntryType = {
   id: number;
   content: string;
+  created_at: string;
 };
+
 
 interface Props {
   onAdd: (newEntry: EntryType) => void;
@@ -40,7 +42,7 @@ const DiaryEntryForm: React.FC<Props> = ({ onAdd }) => {
   const currentDate = new Date().toLocaleDateString();
 
   return (
-    <div className="diary-entry-form p-4 bg-white rounded-lg shadow-lg relative ">
+    <div className="diary-entry-form p-4 bg-white rounded-lg shadow-lg relative mb-4">
       <form onSubmit={handleSubmit}>
         <input
           type="text"

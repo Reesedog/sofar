@@ -4,8 +4,32 @@ import DiaryEntryForm from './DiaryEntryForm';
 type EntryType = {
   id: number;
   content: string;
+  created_at: string;
 };
 
+type GroupedEntries = {
+  [date: string]: EntryType[];
+};
+
+interface DateCardProps {
+  date: string;
+  entries: EntryType[];
+}
+
+const DateCard: React.FC<DateCardProps> = ({ date, entries }) => {
+  return (
+    <div className="p-4 bg-white rounded-lg shadow-md mb-4">
+      <h2 className="pb-3 text-xl font-bold">{date}</h2>
+      <div className="space-y-2">
+        {entries.map(entry => (
+          <div key={entry.id} className="p-2 bg-gray-200 rounded-md">
+            {entry.content}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const Timeline: React.FC = () => {
   const [entries, setEntries] = useState<EntryType[]>([]);
@@ -69,27 +93,48 @@ const Timeline: React.FC = () => {
     }
   };
 
+  const groupedEntries = entries.reduce<GroupedEntries>((acc, entry) => {
+    const date = new Date(entry.created_at).toISOString().split('T')[0];
+    if (!acc[date]) {
+      acc[date] = [];
+    }
+    acc[date].push(entry);
+    return acc;
+  }, {});
+
+
   return (
     <div className="p-4 bg-gray-100">
       <h1 className="text-2xl font-bold mb-4">时间线</h1>
       <DiaryEntryForm onAdd={addEntry} />
-      <div className="entries mt-4 space-y-4">
-        {entries.map(entry => (
-          <div key={entry.id} className="entry-card p-4 bg-white rounded-lg shadow-md relative">
-            <p className="mb-0">{entry.content}</p>
-            <div className="absolute bottom-3 right-3 space-x-2">
-              <button
-                onClick={() => handleDelete(entry.id)}
-                className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
-              >
-                删除
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+      {Object.keys(groupedEntries).map(date => (
+        <DateCard key={date} date={date} entries={groupedEntries[date]} />
+        
+      ))}
     </div>
   );
+
+  // return (
+  //   <div className="p-4 bg-gray-100">
+  //     <h1 className="text-2xl font-bold mb-4">时间线</h1>
+  //     <DiaryEntryForm onAdd={addEntry} />
+  //     <div className="entries mt-4 space-y-4">
+  //       {entries.map(entry => (
+  //         <div key={entry.id} className="entry-card p-4 bg-white rounded-lg shadow-md relative">
+  //           <p className="mb-0">{entry.content}</p>
+  //           <div className="absolute bottom-3 right-3 space-x-2">
+  //             <button
+  //               onClick={() => handleDelete(entry.id)}
+  //               className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+  //             >
+  //               删除
+  //             </button>
+  //           </div>
+  //         </div>
+  //       ))}
+  //     </div>
+  //   </div>
+  // );
 }
 
 export default Timeline;
