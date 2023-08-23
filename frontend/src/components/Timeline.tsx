@@ -94,7 +94,7 @@ const Timeline: React.FC = () => {
   };
 
   const groupedEntries = entries.reduce<GroupedEntries>((acc, entry) => {
-    const date = new Date(entry.created_at).toISOString().split('T')[0];
+    const date = entry.created_at.split('T')[0];
     if (!acc[date]) {
       acc[date] = [];
     }
