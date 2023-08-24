@@ -57,3 +57,25 @@ const Playground: React.FC = () => {
 };
 
 export default Playground;
+
+// const handleEdit = async (id: number, newContent: string) => {
+//     try {
+//         const response = await fetch(`http://34.125.177.255:4000/entries/${id}`, {
+//             method: 'PUT',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//               },
+//               body: JSON.stringify({ content: newContent }),
+//             });
+//             if (response.ok) {
+//                 const updatedEntry = await response.json();
+//                 setEntries(prevEntries =>
+//                   prevEntries.map(entry => entry.id === id ? updatedEntry : entry)
+//                 );
+//               } else {
+//                   console.error("Error editing entry:", await response.text());
+//     }
+//   } catch (error) {
+//       console.error("Error editing entry:", error);
+//     }
+//   };

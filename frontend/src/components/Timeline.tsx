@@ -12,26 +12,31 @@ type GroupedEntries = {
 };
 
 interface DateCardProps {
-  date: string;
-  entries: EntryType[];
+  entries: GroupedEntries;
 }
 
-const DateCard: React.FC<DateCardProps> = ({ date, entries }) => {
-  return (
-    <div className="p-4 bg-white rounded-lg shadow-md mb-4">
-      <h2 className="pb-3 text-xl font-bold">{date}</h2>
-      <div className="space-y-2">
-        {entries.map(entry => (
-          <div key={entry.id} className="p-2 bg-gray-200 rounded-md">
-            {entry.content}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
 const Timeline: React.FC = () => {
+
+  const DateCard: React.FC<DateCardProps> = (entries) => {
+    return (
+      <>
+        {Object.keys(groupedEntries).map(date => (
+          <>
+            <h2 className="text-xl font-bold mb-2 lp-1">{date}</h2>
+            <div key={date} className="date-card p-4 bg-white rounded-lg shadow-md mb-4">
+              {groupedEntries[date].map(entry => (
+                <div key={entry.id} className="border-2 border-slate-100 items-center entry p-2 bg-white rounded-lg shadow-lg mb-2 flex justify-between hover:bg-blue-50">
+                  <span>{entry.content}</span>
+                  <button onClick={() => handleDelete(entry.id)} className="  px-2 py-1 ">🗑️</button>
+                </div>
+              ))}
+            </div>
+          </>
+        ))}
+      </>
+    );
+  };
+
   const [entries, setEntries] = useState<EntryType[]>([]);
 
   const addEntry = (newEntry: EntryType) => {
@@ -85,16 +90,7 @@ const Timeline: React.FC = () => {
     <div className="p-4 bg-gray-100">
       <h1 className="text-2xl font-bold mb-4">时间线</h1>
       <DiaryEntryForm onAdd={addEntry} />
-      {Object.keys(groupedEntries).map(date => (
-        <><div><h2 className="text-xl font-bold mb-2 lp-1">{date}</h2></div><div key={date} className="date-card p-4 bg-white rounded-lg shadow-md mb-4">
-          {groupedEntries[date].map(entry => (
-            <div key={entry.id} className="border-2 border-slate-100 items-center entry p-2 bg-white rounded-lg shadow-lg mb-2 flex justify-between hover:bg-blue-50">
-              <span>{entry.content}</span>
-              <button onClick={() => handleDelete(entry.id)} className="bg-red-500 text-white px-2 py-1 rounded">删除</button>
-            </div>
-          ))}
-        </div></>
-      ))}
+      <DateCard entries={groupedEntries} />
     </div>
   );
 }
@@ -102,26 +98,4 @@ const Timeline: React.FC = () => {
 export default Timeline;
 
 
-// const handleEdit = async (id: number, newContent: string) => {
-//     try {
-//         const response = await fetch(`http://34.125.177.255:4000/entries/${id}`, {
-//             method: 'PUT',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//               },
-//               body: JSON.stringify({ content: newContent }),
-//             });
-//             if (response.ok) {
-//                 const updatedEntry = await response.json();
-//                 setEntries(prevEntries =>
-//                   prevEntries.map(entry => entry.id === id ? updatedEntry : entry)
-//                 );
-//               } else {
-//                   console.error("Error editing entry:", await response.text());
-//     }
-//   } catch (error) {
-//       console.error("Error editing entry:", error);
-//     }
-//   };
 
- 
