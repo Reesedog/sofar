@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 type EntryType = {
   id: number;
   content: string;
-  created_at: string;
+created_at: string;
 };
 
 

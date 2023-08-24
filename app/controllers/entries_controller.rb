@@ -1,6 +1,6 @@
 class EntriesController < ApplicationController
     def index
-      @entries = Entry.all
+      @entries = Entry.order(created_at: :desc)
       render json: @entries
     end
   
