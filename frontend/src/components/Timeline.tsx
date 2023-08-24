@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DiaryEntryForm from './DiaryEntryForm';
-
-type EntryType = {
-  id: number;
-  content: string;
-  created_at: string;
-};
+import { EntryType } from './DiaryEntryForm';
 
 type GroupedEntries = {
   [date: string]: EntryType[];
@@ -27,7 +22,7 @@ const Timeline: React.FC = () => {
               {groupedEntries[date].map(entry => (
                 <div key={entry.id} className="border-2 border-slate-100 items-center entry p-2 bg-white rounded-lg shadow-lg mb-2 flex justify-between hover:bg-blue-50">
                   <span>{entry.content}</span>
-                  <button onClick={() => handleDelete(entry.id)} className="  px-2 py-1 ">🗑️</button>
+                  <button onClick={() => handleDelete(entry.id)} className="hover:bg-red-200  px-2 py-1 rounded-lg">🗑️</button>
                 </div>
               ))}
             </div>
@@ -42,6 +37,7 @@ const Timeline: React.FC = () => {
   const addEntry = (newEntry: EntryType) => {
     setEntries(prevEntries => [newEntry, ...prevEntries]);
   };
+  
 
   useEffect(() => {
     const fetchEntries = async () => {

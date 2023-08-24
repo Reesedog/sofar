@@ -1,35 +1,38 @@
 import React, { useState } from 'react';
 
-type EntryType = {
+export type EntryType = {
   id: number;
   content: string;
-created_at: string;
+  created_at: string;
+  label: string;
 };
-
 
 interface Props {
   onAdd: (newEntry: EntryType) => void;
 }
 
 const DiaryEntryForm: React.FC<Props> = ({ onAdd }) => {
-  const [entry, setEntry] = useState('');
+  const [content, setContent] = useState('');
+  const [label, setLabel] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (entry) {
+    console.log(JSON.stringify({ content: content, label: label }));
+    if (content) {
       try {
         const response = await fetch('http://34.125.177.255:4000/entries', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ content: entry })
+          body: JSON.stringify({ content: content, label: label })
         });
 
         if (response.ok) {
           const data: EntryType = await response.json();
           onAdd(data);
-          setEntry('');
+          setContent('');
+          setLabel('');
         } else {
           console.error("Error adding entry:", await response.text());
         }
@@ -46,9 +49,16 @@ const DiaryEntryForm: React.FC<Props> = ({ onAdd }) => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          value={entry}
-          onChange={(e) => setEntry(e.target.value)}
-          placeholder="写下今天的日记..."
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="写下今天的记录..."
+          className="w-full p-2 mb-2 border rounded-md"
+        />
+        <input
+          type="text"
+          value={label}
+          onChange={(e) => setLabel(e.target.value)}
+          placeholder="写下记录的标签..."
           className="w-full p-2 mb-2 border rounded-md"
         />
         <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 shadow-md">
