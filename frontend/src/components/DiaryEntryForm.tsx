@@ -32,7 +32,7 @@ const DiaryEntryForm: React.FC<Props> = ({ onAdd }) => {
           const data: EntryType = await response.json();
           onAdd(data);
           setContent('');
-          setLabel('');
+          // setLabel('');
         } else {
           console.error("Error adding entry:", await response.text());
         }
