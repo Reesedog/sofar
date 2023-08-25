@@ -49,16 +49,16 @@ const DiaryEntryForm: React.FC<Props> = ({ onAdd }) => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          placeholder="写下今天的记录..."
+          value={label}
+          onChange={(e) => setLabel(e.target.value)}
+          placeholder="写下记录的标签..."
           className="w-full p-2 mb-2 border rounded-md"
         />
         <input
           type="text"
-          value={label}
-          onChange={(e) => setLabel(e.target.value)}
-          placeholder="写下记录的标签..."
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="写下今天的记录..."
           className="w-full p-2 mb-2 border rounded-md"
         />
         <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 shadow-md">
