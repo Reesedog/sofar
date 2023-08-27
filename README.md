@@ -10,7 +10,5 @@ I wonder what these little gains I made would look like when they are prensented
 
 ## About this project
 - Frontend: React with Typescript
-<br>
 - Backend: Ruby on Rails 
-<br>
 - Database: currently SQLite
