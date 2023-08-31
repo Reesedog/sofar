@@ -10,8 +10,19 @@ const Timeline: React.FC = () => {
     setEntries(prevEntries => [newEntry, ...prevEntries]);
   };
 
-  const handleDelete = (id: number) => {
-    setEntries(prevEntries => prevEntries.filter(entry => entry.id !== id));
+  const handleDelete = async (id: number) => {
+    try {
+      const response = await fetch(`http://34.125.177.255:4000/entries/${id}`, {
+        method: 'DELETE',
+      });
+      if (response.ok) {
+        setEntries(prevEntries => prevEntries.filter(entry => entry.id !== id));
+      } else {
+        console.error("Error deleting entry:", await response.text());
+      }
+    } catch (error) {
+      console.error("Error deleting entry:", error);
+    }
   };
 
   useEffect(() => {
@@ -33,8 +44,8 @@ const Timeline: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-4 bg-gray-100">
-      <h1 className="text-2xl font-bold mb-4">时间线</h1>
+    <div className="p-4">
+      <h1 style= {{backgroundColor: 'rgba(255, 255, 255, 0.3)',backdropFilter: 'blur(10px)'}} className="p-3 text-2xl font-bold mb-4 rounded-xl">时间线</h1>
       <EntryForm onAdd={addEntry} />
       <DateGroupedEntries entries={entries} onDelete={handleDelete} />
     </div>
