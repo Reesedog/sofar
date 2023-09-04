@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'rack-cors'
 
+gem 'devise_token_auth'
 
 ruby "3.0.0"
 
