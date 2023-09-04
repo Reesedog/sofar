@@ -60,7 +60,7 @@ export default Playground;
 
 // const handleEdit = async (id: number, newContent: string) => {
 //     try {
-//         const response = await fetch(`http://34.125.177.255:4000/entries/${id}`, {
+//         const response = await fetch(`http://34.125.11.145:4000/entries/${id}`, {
 //             method: 'PUT',
 //             headers: {
 //                 'Content-Type': 'application/json',

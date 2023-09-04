@@ -10,19 +10,65 @@ const Timeline: React.FC = () => {
     setEntries(prevEntries => [newEntry, ...prevEntries]);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = async (id: number) => {
     setEntries(prevEntries => prevEntries.filter(entry => entry.id !== id));
+    try {
+      const accessToken = localStorage.getItem('access-token');
+      const client = localStorage.getItem('client');
+      const uid = localStorage.getItem('uid');
+      if (accessToken && client && uid) {
+        const response = await fetch(`http://34.125.11.145:4000/entries/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'access-token': accessToken,
+            'client': client,
+            'uid': uid,
+            'Content-Type': 'application/json',
+          }
+        });
+        if (response.ok) {
+          setEntries(prevEntries => prevEntries.filter(entry => entry.id !== id));
+        } else {
+          console.error("Error deleting entry:", await response.text());
+        }
+      }
+    } catch (error) {
+      console.error("Error deleting entry:", error);
+    }
   };
 
   useEffect(() => {
     const fetchEntries = async () => {
       try {
-        const response = await fetch('http://34.125.177.255:4000/entries');
-        if (response.ok) {
-          const data = await response.json();
-          setEntries(data);
-        } else {
-          console.error("Error fetching entries:", await response.text());
+        const accessToken = localStorage.getItem('access-token');
+        const client = localStorage.getItem('client');
+        const uid = localStorage.getItem('uid');
+        if (accessToken && client && uid) {
+          const response = await fetch('http://34.125.11.145:4000/entries', {
+            headers: {
+              'access-token': accessToken,
+              'client': client,
+              'uid': uid,
+            }
+          });
+          if (response.ok) {
+            console.log(response);
+            const data = await response.json();
+            const headers = response.headers;
+            const accessToken = headers.get('Access-Token');
+            const client = headers.get('Client');
+            const uid = headers.get('Uid');
+            console.log(accessToken, client, uid);
+            if (accessToken && client && uid) {
+              localStorage.setItem('access-token', accessToken);
+              localStorage.setItem('client', client);
+              localStorage.setItem('uid', uid);
+            }
+
+            setEntries(data);
+          } else {
+            console.error("Error fetching entries:", await response.text());
+          }
         }
       } catch (error) {
         console.error("Error fetching entries:", error);

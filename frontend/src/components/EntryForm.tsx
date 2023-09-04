@@ -19,20 +19,40 @@ const EntryForm: React.FC<EntryFormProps> = ({ onAdd }) => {
     e.preventDefault();
     if (content) {
       try {
-        const response = await fetch('http://34.125.177.255:4000/entries', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ content: content, label: label })
-        });
+        const accessToken = localStorage.getItem('access-token');
+        const client = localStorage.getItem('client');
+        const uid = localStorage.getItem('uid');
+        console.log(accessToken);
+        if (accessToken && client && uid) {
+          const response = await fetch('http://34.125.11.145:4000/entries', {
+            method: 'POST',
+            headers: {
+              'access-token': accessToken,
+              'client': client,
+              'uid': uid,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ content: content, label: label })
+          });
 
-        if (response.ok) {
-          const data: EntryType = await response.json();
-          onAdd(data);
-          setContent('');
-        } else {
-          console.error("Error adding entry:", await response.text());
+          if (response.ok) {
+            const data: EntryType = await response.json();
+            const headers = response.headers;
+                const accessToken = headers.get('Access-Token');
+                const client = headers.get('Client');
+                const uid = headers.get('Uid');
+                console.log(accessToken, client, uid);
+                if (accessToken && client && uid) {
+                    localStorage.setItem('access-token', accessToken);
+                    localStorage.setItem('client', client);
+                    localStorage.setItem('uid', uid);
+                }
+
+            onAdd(data);
+            setContent('');
+          } else {
+            console.error("Error adding entry:", await response.text());
+          }
         }
       } catch (error) {
         console.error("Error adding entry:", error);

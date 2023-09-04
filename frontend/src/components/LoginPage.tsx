@@ -8,7 +8,7 @@ const LoginPage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const apiUrl = 'http://34.125.177.255:4000/auth/sign_in';
+        const apiUrl = 'http://34.125.11.145:4000/auth/sign_in';
 
         try {
             const response = await fetch(apiUrl, {
@@ -22,7 +22,19 @@ const LoginPage: React.FC = () => {
             console.log(response);
 
             if (response.ok) {
-                console.log('登录成功');
+                const data = await response.json();
+                const headers = response.headers;
+                const accessToken = headers.get('Access-Token');
+                const client = headers.get('Client');
+                const uid = headers.get('Uid');
+                console.log(accessToken, client, uid);
+                if (accessToken && client && uid) {
+                    localStorage.setItem('access-token', accessToken);
+                    localStorage.setItem('client', client);
+                    localStorage.setItem('uid', uid);
+                }
+
+                return data;
             } else {
                 const data = await response.json();
                 setError(data.error || '登录失败');

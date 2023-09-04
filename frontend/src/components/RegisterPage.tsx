@@ -9,7 +9,7 @@ const RegisterPage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const apiUrl = 'http://34.125.177.255:4000/auth/sign_up';
+        const apiUrl = 'http://34.125.11.145:4000/auth';
 
         try {
             const response = await fetch(apiUrl, {
@@ -22,6 +22,7 @@ const RegisterPage: React.FC = () => {
 
             if (response.ok) {
                 console.log('注册成功');
+                console.log(response);
             } else {
                 const data = await response.json();
                 setError(data.errors.full_messages.join(", ") || '注册失败');
