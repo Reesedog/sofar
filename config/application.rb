@@ -10,7 +10,7 @@ module Sofar
 
     config.time_zone = "Canberra"
 
-    config.middleware.use Rack::Cors do
+    config.middleware.insert_before 0, Rack::Cors do
       allow do
 
         origins "*"  # CORS access to the API from the React app
