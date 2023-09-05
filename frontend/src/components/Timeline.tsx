@@ -3,6 +3,7 @@ import EntryForm from './EntryForm';
 import DateGroupedEntries from './DateGroupedEntries';
 import { EntryType } from './EntryForm';
 import { apiRequest } from './apiRequest ';
+import LogoutButton from './LogoutButton';
 
 const Timeline: React.FC = () => {
   const [entries, setEntries] = useState<EntryType[]>([]);
@@ -38,6 +39,7 @@ const Timeline: React.FC = () => {
           setEntries(data);
         } else {
           console.error("Error fetching entries:", await response.text());
+          window.location.href = '/login';
         }
 
       } catch (error) {
@@ -50,7 +52,10 @@ const Timeline: React.FC = () => {
 
   return (
     <div className="p-4">
-      <h1 style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)', backdropFilter: 'blur(10px)' }} className="p-3 text-2xl font-bold mb-4 rounded-xl">时间线</h1>
+      <header style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)', backdropFilter: 'blur(10px)' }} className="p-3 mb-4 rounded-xl flex justify-between items-center">
+        <h1 className="text-2xl font-bold" >时间线</h1>
+        <LogoutButton />
+      </header>
       <EntryForm onAdd={addEntry} />
       <DateGroupedEntries entries={entries} onDelete={handleDelete} />
     </div>

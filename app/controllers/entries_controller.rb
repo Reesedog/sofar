@@ -1,13 +1,13 @@
 class EntriesController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def index
-    @entries = Entry.order(created_at: :desc)
+    @entries = current_user.entries.order(created_at: :desc)
     render json: @entries
   end
 
   def create
-    @entry = Entry.new(entry_params)
+    @entry = current_user.entries.new(entry_params)
     if @entry.save
       render json: @entry, status: :created
     else

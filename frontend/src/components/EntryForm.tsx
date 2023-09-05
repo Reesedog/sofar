@@ -24,17 +24,6 @@ const EntryForm: React.FC<EntryFormProps> = ({ onAdd }) => {
 
         if (response.ok) {
           const data: EntryType = await response.json();
-          const headers = response.headers;
-          const accessToken = headers.get('Access-Token');
-          const client = headers.get('Client');
-          const uid = headers.get('Uid');
-          console.log(accessToken, client, uid);
-          if (accessToken && client && uid) {
-            localStorage.setItem('access-token', accessToken);
-            localStorage.setItem('client', client);
-            localStorage.setItem('uid', uid);
-          }
-
           onAdd(data);
           setContent('');
         } else {
