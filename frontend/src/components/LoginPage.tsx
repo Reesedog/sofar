@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 const LoginPage: React.FC = () => {
+    // TODO login redirect
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
@@ -33,7 +34,7 @@ const LoginPage: React.FC = () => {
                     localStorage.setItem('client', client);
                     localStorage.setItem('uid', uid);
                 }
-
+                window.location.href = '/';
                 return data;
             } else {
                 const data = await response.json();
@@ -45,7 +46,7 @@ const LoginPage: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen flex items-center justify-center  py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
                 <div>
                     <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">登录</h2>

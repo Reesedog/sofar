@@ -30,7 +30,7 @@ const DateGroupedEntries: React.FC<DateGroupedEntriesProps> = ({ entries, onDele
     <>
       {Object.keys(groupedEntries).map(date => (
         <div key={date} className="mb-3.5">
-          <h2 className="text-xl font-bold mb-2 ">{date}</h2>
+          <h2 style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)', backdropFilter: 'blur(10px)' }} className="py-1 px-3 rounded-xl text-xl font-bold mb-2 ">{date}</h2>
           <LabelGroupedEntries entries={groupedEntries[date]} onDelete={onDelete} />
         </div>
       ))}
