@@ -15,7 +15,7 @@ const Timeline: React.FC = () => {
   const handleDelete = async (id: number) => {
     setEntries(prevEntries => prevEntries.filter(entry => entry.id !== id));
     try {
-      const response = await apiRequest(`http://34.125.11.145:4000/entries/${id}`, 'DELETE');
+      const response = await apiRequest(`http://34.16.165.178:4000/entries/${id}`, 'DELETE');
 
       if (response.ok) {
         console.log('Entry deleted successfully');
@@ -32,7 +32,7 @@ const Timeline: React.FC = () => {
     const fetchEntries = async () => {
       try {
         console.log("getting...");
-        const response = await apiRequest('http://34.125.11.145:4000/entries', 'GET');
+        const response = await apiRequest('http://34.16.165.178:4000/entries', 'GET');
 
         if (response.ok) {
           const data = await response.json();

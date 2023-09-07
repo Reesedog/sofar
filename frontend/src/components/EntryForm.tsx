@@ -20,7 +20,7 @@ const EntryForm: React.FC<EntryFormProps> = ({ onAdd }) => {
     e.preventDefault();
     if (content) {
       try {
-        const response = await apiRequest('http://34.125.11.145:4000/entries', 'POST', JSON.stringify({ content: content, label: label }));
+        const response = await apiRequest('http://34.16.165.178:4000/entries', 'POST', JSON.stringify({ content: content, label: label }));
 
         if (response.ok) {
           const data: EntryType = await response.json();

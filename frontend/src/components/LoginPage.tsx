@@ -8,7 +8,7 @@ const LoginPage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const apiUrl = 'http://34.125.11.145:4000/auth/sign_in';
+        const apiUrl = 'http://34.16.165.178:4000/auth/sign_in';
 
         try {
             const response = await fetch(apiUrl, {
@@ -86,6 +86,12 @@ const LoginPage: React.FC = () => {
                             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
                             登录
+                        </button>
+                        <button
+                            onClick={() => window.location.href = '/register'}
+                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 my-3"
+                        >
+                            注册
                         </button>
                     </div>
                 </form>
