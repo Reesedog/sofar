@@ -8,7 +8,7 @@ const LoginPage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const apiUrl = 'http://34.16.165.178:4000/auth/sign_in';
+        const apiUrl = 'http://34.125.24.110:4000/auth/sign_in';
 
         try {
             const response = await fetch(apiUrl, {

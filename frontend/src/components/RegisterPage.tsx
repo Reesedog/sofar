@@ -9,7 +9,7 @@ const RegisterPage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const apiUrl = 'http://34.16.165.178:4000/auth';
+        const apiUrl = 'http://34.125.24.110:4000/auth';
 
         try {
             const response = await fetch(apiUrl, {

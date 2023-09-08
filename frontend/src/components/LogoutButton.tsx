@@ -4,7 +4,7 @@ import { apiRequest } from './apiRequest ';
 const LogoutButton: React.FC = () => {
     const handleLogout = async () => {
         try {
-            const response = await apiRequest(`http://34.16.165.178:4000/auth/sign_out`, 'DELETE');
+            const response = await apiRequest(`http://34.125.24.110:4000/auth/sign_out`, 'DELETE');
 
             if (response.ok) {
                 console.log('成功登出');
