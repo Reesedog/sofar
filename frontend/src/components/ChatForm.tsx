@@ -20,7 +20,7 @@ const ChatForm: React.FC<ChatFormProps> = ({ onSubmit }) => {
                     type="text"
                     value={phrase}
                     onChange={(e) => setPhrase(e.target.value)}
-                    placeholder="Hi, 你今天做了什么..."
+                    placeholder="Hi, 今天有什么进步..."
                     className="w-full p-2 mb-2 border rounded-md"
                 />
                 <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 shadow-md">
